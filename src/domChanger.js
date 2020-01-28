@@ -1,0 +1,7 @@
+const changeMenuBar = () => {
+
+}
+
+const changeCurrentProject = () => {
+    
+}
