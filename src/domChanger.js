@@ -1,5 +1,8 @@
 const printNav = (myProjects) => {
     const nav = document.getElementById('nav');
+    const addNew = document.createElement('button');
+    addNew.textContent = 'New Project';
+    addNew.id = 'newproject';
     for (let i = 0; i < myProjects.length; i++){
         let container = document.createElement('div');
         let projectTitle = document.createElement('h5')
@@ -8,17 +11,21 @@ const printNav = (myProjects) => {
         let project = document.createElement('ul');
         for (let j = 0; j < myProjects[i].tasks.length; j++){
             let task = document.createElement('li');
-            task.style.display = "none";
+            task.style.display = 'none';
             task.textContent = myProjects[i].tasks[j].title;
             project.appendChild(task);
         }
         container.appendChild(project);
         nav.appendChild(container);
     }
+    nav.appendChild(addNew);
 }
 
 const printProject = (project) => {
     const content = document.getElementById('content');
+    const addNew = document.createElement('button');
+    addNew.textContent = 'New Task';
+    addNew.id = 'newtask';
     let container = document.createElement('div');
     let projectTitle = document.createElement('h1');
     projectTitle.textContent = project.title;
@@ -30,10 +37,11 @@ const printProject = (project) => {
         container.appendChild(task);
     }
     content.appendChild(container);
+    content.appendChild(addNew);
 }
 
 const removeProject = () => {
-    const content = document.getElementById("content");
+    const content = document.getElementById('content');
     while (content.firstChild){
         content.removeChild(content.firstChild);
     }
