@@ -1,21 +1,17 @@
-const domChangers = (() => {
-    const content = document.getElementById("content");
-    const nav = document.getElementById("nav");
+const content = document.getElementById("content");
+const nav = document.getElementById("nav");
     
-    const makePage = () => {
+const makePage = () => {
 
-    }
+}
     
-    const changeMenuBar = () => {
+const changeMenuBar = () => {
         
-    }
+}
     
-    const changeCurrentProject = () => {
+const changeCurrentProject = () => {
     
-    }
-    return {makePage, changeMenuBar, changeCurrentProject};
+}
 
-
-})()
 
 export default domChangers;
