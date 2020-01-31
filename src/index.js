@@ -13,16 +13,25 @@ let myProjects = createProjectList(newProject, newProject2)
 printNav(myProjects);
 printProject(newProject);
 
-const projects = document.querySelectorAll('#nav > div > h5');
+const projects = document.querySelectorAll('#nav > div');
 projects.forEach(project => {
     project.addEventListener('click', () => {
         removeProject();
         for (let i = 0; i < myProjects.length; i++){
-            if (myProjects[i].title === project.textContent){
+            if (myProjects[i].title === project.childNodes[0].textContent){
                 printProject(myProjects[i]);
             }
+        }  
+    });
+    project.addEventListener("mouseenter", () => {
+        for (let i = 0; i < project.childNodes[1].childNodes.length; i++){
+            project.childNodes[1].childNodes[i].style.display = "block";
         }
-        
+    });
+    project.addEventListener("mouseleave", () => {
+        for (let i = 0; i < project.childNodes[1].childNodes.length; i++){
+            project.childNodes[1].childNodes[i].style.display = "none";
+        }
     });
 });
 
