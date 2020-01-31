@@ -10,7 +10,7 @@ const createProject = function(title) {
 }
 const createProjectList = function() {
     const projects = [];
-    for (let i=0; i < arguments.length; i++){
+    for (let i = 0; i < arguments.length; i++){
         projects.push(arguments[i]);
     }
     return projects;
