@@ -8,6 +8,7 @@ const printNav = (myProjects) => {
         let project = document.createElement('ul');
         for (let j = 0; j < myProjects[i].tasks.length; j++){
             let task = document.createElement('li');
+            task.style.display = "none";
             task.textContent = myProjects[i].tasks[j].title;
             project.appendChild(task);
         }
@@ -30,5 +31,13 @@ const printProject = (project) => {
     }
     content.appendChild(container);
 }
+
+const removeProject = () => {
+    const content = document.getElementById("content");
+    while (content.firstChild){
+        content.removeChild(content.firstChild);
+    }
+}
+
     
-export { printNav, printProject };
+export { printNav, printProject, removeProject };

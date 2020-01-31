@@ -1,5 +1,5 @@
 import {createTask, createProject, createProjectList} from './taskChanger';
-import {printNav, printProject} from './domChanger';
+import {printNav, printProject, removeProject } from './domChanger';
 
 let newTask = createTask("Do dishes", "People are coming over and they need done.", "Dec 1", "High");
 let newTask2 = createTask("Do laundry", "People are coming over and they need done.", "Dec 1", "High");
@@ -13,17 +13,16 @@ let myProjects = createProjectList(newProject, newProject2)
 printNav(myProjects);
 printProject(newProject);
 
-const projects = document.querySelectorAll("#nav > div");
+const projects = document.querySelectorAll('#nav > div > h5');
 projects.forEach(project => {
-    project.addEventListener("click", () => {
-        let selectedProject = project.childNodes;
-        selectedProject.forEach(node => {
-            if (node.nodeName === "UL" && node.style.display !== "none"){
-                node.style.display = "none";
+    project.addEventListener('click', () => {
+        removeProject();
+        for (let i = 0; i < myProjects.length; i++){
+            if (myProjects[i].title === project.textContent){
+                printProject(myProjects[i]);
             }
-            else if (node.style.display === "none"){
-                node.style.display = "block";
-            }
-        })
+        }
+        
     });
 });
+
