@@ -47,5 +47,25 @@ const removeProject = () => {
     }
 }
 
+const printProjectForm = () => {
+    const nav = document.getElementById('nav');
+    const container = document.createElement('div');
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add';
+    addButton.id = 'addproject';
+    container.id = 'projectform'
+    let formTitle = document.createElement('h3');
+    formTitle.textContent = 'New Project';
+    container.appendChild(formTitle);
+    let label = document.createElement('label');
+    label.textContent = 'Title: '
+    let titleInput = document.createElement('input');
+    container.appendChild(label);
+    container.appendChild(titleInput);
+    container.appendChild(addButton);
+    container.style.display = "none";
+    nav.appendChild(container);
+}
+
     
-export { printNav, printProject, removeProject };
+export { printNav, printProject, removeProject, printProjectForm };
