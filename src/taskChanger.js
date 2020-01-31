@@ -1,12 +1,19 @@
 const createTask = (title, description, dueDate, priority) => {
     return { title, description, dueDate, priority };
 };
-const createProject = function() {
-    const project = [];
-    for (let i = 0; i < arguments.length; i++){
-        project.push(arguments[i]);
+const createProject = function(title) {
+    const tasks = [];
+    for (let i = 1; i < arguments.length; i++){
+        tasks.push(arguments[i]);
     }
-    return project;
+    return {title, tasks};
+}
+const createProjectList = function() {
+    const projects = [];
+    for (let i=0; i < arguments.length; i++){
+        projects.push(arguments[i]);
+    }
+    return projects;
 }
 
-export { createTask, createProject };
+export { createTask, createProject, createProjectList };
