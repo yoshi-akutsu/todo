@@ -8,6 +8,14 @@ const createProject = function(title) {
     }
     return {title, tasks};
 }
+const addTask = (project, task) => {
+    if (!project.tasks) {
+        project.tasks = [];
+    }
+    project.tasks.push(task);
+
+}
+
 const createProjectList = function() {
     const projects = [];
     for (let i = 0; i < arguments.length; i++){
@@ -16,4 +24,4 @@ const createProjectList = function() {
     return projects;
 }
 
-export { createTask, createProject, createProjectList };
+export { createTask, createProject, createProjectList, addTask };

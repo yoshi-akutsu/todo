@@ -30,11 +30,24 @@ const printNav = (myProjects, init) => {
     }
     nav.appendChild(navContent);
 }
-const printProject = (project, init) => {
+
+function makeContainer(init) {
+    if (init === true){
+        let container = document.createElement('div');
+        container.id = 'current';
+        return container;
+    }
+    else {
+        let container2 = document.getElementById('current');
+        return container2;
+    }
+}
+
+const printProject = (project, init, index) => {
     const content = document.getElementById('content');
-    let container = document.createElement('div');
-    container.id = 'current';
+    let container = makeContainer(init);
     let projectTitle = document.createElement('h1');
+    projectTitle.id = index;
     projectTitle.textContent = project.title;
     container.appendChild(projectTitle);
     for (let i = 0; i < project.tasks.length; i++){
@@ -43,7 +56,7 @@ const printProject = (project, init) => {
         task.textContent = project.tasks[i].title;
         container.appendChild(task);
     }
-    content.appendChild(container);
+    content.prepend(container);
     if (init === true) {
         const addNew = document.createElement('button');
         addNew.textContent = 'New Task';

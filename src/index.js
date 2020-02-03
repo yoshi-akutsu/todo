@@ -1,4 +1,4 @@
-import {createTask, createProject, createProjectList} from './taskChanger';
+import {createTask, createProject, createProjectList, addTask } from './taskChanger';
 import {printNav, printProject, removeDisplay, clearForm } from './domChanger';
 
 //example todos
@@ -10,7 +10,7 @@ let newProject2 = createProject("Party Prep 2", newTask, newTask2, newTask3);
 let myProjects = createProjectList(newProject, newProject2)
 
 printNav(myProjects, true);
-printProject(newProject, true);
+printProject(newProject, true, 0);
 
 const mutationObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
@@ -20,7 +20,7 @@ const mutationObserver = new MutationObserver(function(mutations) {
                 removeDisplay('current');
                 for (let i = 0; i < myProjects.length; i++){
                     if (myProjects[i].title === project.childNodes[0].textContent){
-                        printProject(myProjects[i]);
+                        printProject(myProjects[i], false, i);
                     }
                 }  
             });
@@ -40,6 +40,8 @@ const mutationObserver = new MutationObserver(function(mutations) {
 
 const config = { attributes: true, childList: true, characterData: true };
 mutationObserver.observe(document.getElementById('nav'), config);
+mutationObserver.observe(document.getElementById('content'), config);
+
 
 const projects = document.querySelectorAll('.projectdiv');
 projects.forEach(project => {
@@ -47,7 +49,7 @@ projects.forEach(project => {
         removeDisplay('current');
         for (let i = 0; i < myProjects.length; i++){
             if (myProjects[i].title === project.childNodes[0].textContent){
-                printProject(myProjects[i]);
+                printProject(myProjects[i], false, i);
             }
         }  
     });
@@ -87,11 +89,19 @@ buttons.forEach(button => {
             const taskForm = document.getElementById('taskform');
             let array = [];
             taskForm.childNodes.forEach(child => {
-                array.push(child);
+                if (child.tagName === 'INPUT'){
+                    array.push(child.value);
+                }
             })
-            createTask(array[0], array[1], array[2], array[3]);
+            const thisProject = document.querySelector('#current > h1');
+            addTask(myProjects[thisProject.id], createTask(array[0], array[1], array[2], array[3]));
             clearForm('taskform');
             button.parentNode.style.display = 'none';
+            removeDisplay('current');
+            printProject(myProjects[thisProject.id], false, thisProject.id);
+            const navContent = document.getElementById('navcontent');
+            navContent.remove();
+            printNav(myProjects);
         }
     })
 })
