@@ -1,11 +1,7 @@
-const printNav = (myProjects) => {
-    const nav = document.getElementById('nav');
-    const header = document.createElement('h3');
-    header.textContent = 'My Projects';
-    nav.appendChild(header);
-    const addNew = document.createElement('button');
-    addNew.textContent = 'New Project';
-    addNew.id = 'newproject';
+const printNav = (myProjects, init) => {
+    let navContent = document.createElement('div');
+    navContent.id = 'navcontent';
+    const nav = document.getElementById('nav'); 
     for (let i = 0; i < myProjects.length; i++){
         let container = document.createElement('div');
         container.classList.add('projectdiv')
@@ -20,16 +16,24 @@ const printNav = (myProjects) => {
             project.appendChild(task);
         }
         container.appendChild(project);
-        nav.appendChild(container);
+        navContent.appendChild(container);
     }
-    nav.appendChild(addNew);
+    if (init === true) {
+        const header = document.createElement('h3');
+        header.textContent = 'My Projects';
+        nav.appendChild(header);
+        const addNew = document.createElement('button');
+        addNew.textContent = 'New Project';
+        addNew.id = 'newproject';
+        nav.appendChild(addNew);
+        printProjectForm();
+    }
+    nav.appendChild(navContent);
 }
-const printProject = (project) => {
+const printProject = (project, init) => {
     const content = document.getElementById('content');
-    const addNew = document.createElement('button');
-    addNew.textContent = 'New Task';
-    addNew.id = 'newtask';
     let container = document.createElement('div');
+    container.id = 'current';
     let projectTitle = document.createElement('h1');
     projectTitle.textContent = project.title;
     container.appendChild(projectTitle);
@@ -40,7 +44,13 @@ const printProject = (project) => {
         container.appendChild(task);
     }
     content.appendChild(container);
-    content.appendChild(addNew);
+    if (init === true) {
+        const addNew = document.createElement('button');
+        addNew.textContent = 'New Task';
+        addNew.id = 'newtask';
+        content.appendChild(addNew);
+        printTaskForm();
+    }
 }
 const removeDisplay = (id) => {
     const content = document.getElementById(id);
@@ -48,7 +58,6 @@ const removeDisplay = (id) => {
         content.removeChild(content.firstChild);
     }
 }
-
 function makeForm(title, labelText, containerId) {
     const container = document.createElement('div');
     container.id = containerId;
@@ -94,4 +103,4 @@ const clearForm = (formid) => {
     })
 }
     
-export { printNav, printProject, removeDisplay, printProjectForm, printTaskForm, clearForm };
+export { printNav, printProject, removeDisplay, clearForm };
