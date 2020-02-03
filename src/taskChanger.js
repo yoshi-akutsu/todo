@@ -24,4 +24,29 @@ const createProjectList = function() {
     return projects;
 }
 
-export { createTask, createProject, createProjectList, addTask };
+const initialListen = () => {
+    const projects = document.querySelectorAll('.projectdiv');
+    projects.forEach(project => {
+        project.addEventListener('click', () => {
+            removeDisplay('current');
+            for (let i = 0; i < myProjects.length; i++){
+                if (myProjects[i].title === project.childNodes[0].textContent){
+                    printProject(myProjects[i], false, i);
+                }
+            }  
+        });
+        project.addEventListener('mouseenter', () => {
+            for (let i = 0; i < project.childNodes[1].childNodes.length; i++){
+                project.childNodes[1].childNodes[i].style.display = "block";
+            }
+        });
+        project.addEventListener('mouseleave', () => {
+            for (let i = 0; i < project.childNodes[1].childNodes.length; i++){
+                project.childNodes[1].childNodes[i].style.display = "none";
+            }
+        });
+    });
+    
+}
+
+export { createTask, createProject, createProjectList, addTask, initialListen };

@@ -8,6 +8,7 @@ const printNav = (myProjects, init) => {
         let projectTitle = document.createElement('h5')
         projectTitle.textContent = myProjects[i].title;
         container.appendChild(projectTitle);
+        
         let project = document.createElement('ul');
         for (let j = 0; j < myProjects[i].tasks.length; j++){
             let task = document.createElement('li');
@@ -51,17 +52,45 @@ const printProject = (project, init, index) => {
     projectTitle.textContent = project.title;
     container.appendChild(projectTitle);
     for (let i = 0; i < project.tasks.length; i++){
-        //How do I want to display a task?
-        let task = document.createElement('p');
-        task.textContent = project.tasks[i].title;
+
+
+        //Task Display
+        let task = document.createElement('div');
+        task.classList.add('taskdiv');
+        let taskTitle = document.createElement('h4');
+        taskTitle.textContent = project.tasks[i].title;
+        if (project.tasks[i].priority === 'high'){
+            task.classList.add('high')
+        }
+        else if (project.tasks[i].priority === 'mid'){
+            task.classList.add('mid')
+        }
+        else {
+            task.classList.add('low')
+        }
+        let description = document.createElement('p');
+        description.textContent = project.tasks[i].description;
+        let due = document.createElement('p');
+        due.textContent = project.tasks[i].dueDate;
+        task.appendChild(taskTitle);
+        task.appendChild(description);
+        task.appendChild(due);
+        const deleteTask = document.createElement('button');
+        deleteTask.textContent = 'Delete Task';
+        deleteTask.classList.add('deletetask');
+        task.appendChild(deleteTask);
         container.appendChild(task);
     }
     content.prepend(container);
     if (init === true) {
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete Project';
+        deleteBtn.id = 'delete';
         const addNew = document.createElement('button');
         addNew.textContent = 'New Task';
         addNew.id = 'newtask';
         content.appendChild(addNew);
+        content.appendChild(deleteBtn);
         printTaskForm();
     }
 }
@@ -78,11 +107,13 @@ function makeForm(title, labelText, containerId) {
     formTitle.textContent = title;
     container.appendChild(formTitle);
     for (let i = 0; i < labelText.length; i++) {
+        let breaker = document.createElement('br')
         let label = document.createElement('label');
         label.textContent = labelText[i];
         let input = document.createElement('input');
         container.appendChild(label);
         container.appendChild(input);
+        container.appendChild(breaker)
     }
     return container;
 }
@@ -104,7 +135,7 @@ const printProjectForm = () => {
 const printTaskForm = () => {
     const content = document.getElementById('content');
     const addButton = makeButton('addtask', 'Add Task');
-    const form = makeForm('New Task', ['Title: ', 'Description', 'Due Date', 'Priority'], 'taskform');
+    const form = makeForm('New Task', ['Title: ', 'Description: ', 'Due Date: ', 'Priority: '], 'taskform');
     form.appendChild(addButton);
     form.style.display = 'none';
     content.appendChild(form);
