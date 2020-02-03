@@ -1,10 +1,14 @@
 const printNav = (myProjects) => {
     const nav = document.getElementById('nav');
+    const header = document.createElement('h3');
+    header.textContent = 'My Projects';
+    nav.appendChild(header);
     const addNew = document.createElement('button');
     addNew.textContent = 'New Project';
     addNew.id = 'newproject';
     for (let i = 0; i < myProjects.length; i++){
         let container = document.createElement('div');
+        container.classList.add('projectdiv')
         let projectTitle = document.createElement('h5')
         projectTitle.textContent = myProjects[i].title;
         container.appendChild(projectTitle);
@@ -20,7 +24,6 @@ const printNav = (myProjects) => {
     }
     nav.appendChild(addNew);
 }
-
 const printProject = (project) => {
     const content = document.getElementById('content');
     const addNew = document.createElement('button');
@@ -39,33 +42,56 @@ const printProject = (project) => {
     content.appendChild(container);
     content.appendChild(addNew);
 }
-
-const removeProject = () => {
-    const content = document.getElementById('content');
+const removeDisplay = (id) => {
+    const content = document.getElementById(id);
     while (content.firstChild){
         content.removeChild(content.firstChild);
     }
 }
 
+function makeForm(title, labelText, containerId) {
+    const container = document.createElement('div');
+    container.id = containerId;
+    let formTitle = document.createElement('h5');
+    formTitle.textContent = title;
+    container.appendChild(formTitle);
+    for (let i = 0; i < labelText.length; i++) {
+        let label = document.createElement('label');
+        label.textContent = labelText[i];
+        let input = document.createElement('input');
+        container.appendChild(label);
+        container.appendChild(input);
+    }
+    return container;
+}
+function makeButton(id, text){
+    const button = document.createElement('button');
+    button.textContent = text;
+    button.id = id;
+    return button;
+}
 const printProjectForm = () => {
     const nav = document.getElementById('nav');
-    const container = document.createElement('div');
-    const addButton = document.createElement('button');
-    addButton.textContent = 'Add';
-    addButton.id = 'addproject';
-    container.id = 'projectform'
-    let formTitle = document.createElement('h3');
-    formTitle.textContent = 'New Project';
-    container.appendChild(formTitle);
-    let label = document.createElement('label');
-    label.textContent = 'Title: '
-    let titleInput = document.createElement('input');
-    container.appendChild(label);
-    container.appendChild(titleInput);
-    container.appendChild(addButton);
-    container.style.display = "none";
-    nav.appendChild(container);
+    const addButton = makeButton('addbutton', 'Add');
+    const form = makeForm('New Project', ['Title: '], 'projectform');
+    form.appendChild(addButton);
+    form.style.display = 'none';
+    nav.appendChild(form);
 }
 
+const printTaskForm = () => {
+    const content = document.getElementById('content');
+    const addButton = makeButton('addtask', 'Add Task');
+    const form = makeForm('New Task', ['Title: ', 'Description', 'Due Date', 'Priority'], 'taskform');
+    form.appendChild(addButton);
+    form.style.display = 'none';
+    content.appendChild(form);
+}
+const clearForm = (formid) => {
+    const form = document.getElementById(formid);
+    form.childNodes.forEach(child => {
+        child.value = '';
+    })
+}
     
-export { printNav, printProject, removeProject, printProjectForm };
+export { printNav, printProject, removeDisplay, printProjectForm, printTaskForm, clearForm };

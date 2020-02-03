@@ -1,5 +1,5 @@
 import {createTask, createProject, createProjectList} from './taskChanger';
-import {printNav, printProject, removeProject, printProjectForm } from './domChanger';
+import {printNav, printProject, removeDisplay, printProjectForm, printTaskForm, clearForm } from './domChanger';
 
 //example todos
 let newTask = createTask("Do dishes", "People are coming over and they need done.", "Dec 1", "High");
@@ -12,11 +12,13 @@ let myProjects = createProjectList(newProject, newProject2)
 printNav(myProjects);
 printProject(newProject);
 printProjectForm();
+printTaskForm();
 
-const projects = document.querySelectorAll('#nav > div');
+
+const projects = document.querySelectorAll('.projectdiv');
 projects.forEach(project => {
     project.addEventListener('click', () => {
-        removeProject();
+        removeDisplay('content');
         for (let i = 0; i < myProjects.length; i++){
             if (myProjects[i].title === project.childNodes[0].textContent){
                 printProject(myProjects[i]);
@@ -41,8 +43,26 @@ buttons.forEach(button => {
         if (button.id === 'newproject') {
             button.nextSibling.style.display = 'block';
         }
-        if (button.id === 'addproject') {
-            button.parentNode.style.display = 'block';
+        if (button.id === 'newtask') {
+            button.nextSibling.style.display = 'block';
+        }
+        if (button.id === 'addbutton'){
+            const projectForm = document.getElementById('projectform');
+            myProjects.push(createProject(projectForm.childNodes.forEach(child => child.value)));
+
+            clearForm('projectform');
+            button.parentNode.style.display = 'none';
+        }
+        if (button.id === 'addtask'){
+            const taskForm = document.getElementById('taskform');
+            let array = [];
+            taskForm.childNodes.forEach(child => {
+                array.push(child);
+            })
+            createTask(array[0], array[1], array[2], array[3]);
+
+            clearForm('taskform');
+            button.parentNode.style.display = 'none';
         }
     })
 })
