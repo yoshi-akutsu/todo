@@ -25,6 +25,7 @@ const printNav = (myProjects, init) => {
         nav.appendChild(header);
         const addNew = document.createElement('button');
         addNew.textContent = 'New Project';
+        addNew.classList.add('main');
         addNew.id = 'newproject';
         nav.appendChild(addNew);
         printProjectForm();
@@ -83,10 +84,12 @@ const printProject = (project, init, index) => {
     content.prepend(container);
     if (init === true) {
         const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('main');
         deleteBtn.textContent = 'Delete Project';
         deleteBtn.id = 'delete';
         const addNew = document.createElement('button');
         addNew.textContent = 'New Task';
+        addNew.classList.add('main');
         addNew.id = 'newtask';
         content.appendChild(addNew);
         content.appendChild(deleteBtn);
@@ -150,6 +153,7 @@ function makeForm(title, labelText, containerId) {
 }
 function makeButton(id, text){
     const button = document.createElement('button');
+    button.classList.add('main');
     button.textContent = text;
     button.id = id;
     return button;

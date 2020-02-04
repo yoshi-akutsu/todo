@@ -39,18 +39,18 @@ const buttonObserver = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
         let taskKillers = document.querySelectorAll('.deletetask');
         taskKillers.forEach(killer => {
-            killer.addEventListener('click', () => {
+            killer.addEventListener('click', (e) => {
                 let taskId = killer.parentNode;
                 taskId = taskId.id;
                 taskId = taskId.replace('task', '');
                 let projectId = document.querySelector('#current > h1');
-                
                 myProjects[projectId.id].tasks.splice(taskId, 1, );
                 removeDisplay('current');
                 printProject(myProjects[projectId.id], false, projectId.id);
                 let navContent = document.getElementById('navcontent');
                 navContent.remove();
                 printNav(myProjects);
+                killer.removeEventListener('click', e)
             })
         })
   
@@ -66,7 +66,7 @@ initialListen();
 
 let taskKillers = document.querySelectorAll('.deletetask');
 taskKillers.forEach(killer => {
-    killer.addEventListener('click', () => {
+    killer.addEventListener('click', (e) => {
         let taskId = killer.parentNode;
         taskId = taskId.id;
         taskId = taskId.replace('task', '');
@@ -77,11 +77,11 @@ taskKillers.forEach(killer => {
         let navContent = document.getElementById('navcontent');
         navContent.remove();
         printNav(myProjects);
-
+        killer.removeEventListener('click', e)
     })
 })
 
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.main');
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         if (button.id === 'newproject') {
