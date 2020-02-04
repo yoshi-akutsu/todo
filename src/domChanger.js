@@ -52,11 +52,10 @@ const printProject = (project, init, index) => {
     projectTitle.textContent = project.title;
     container.appendChild(projectTitle);
     for (let i = 0; i < project.tasks.length; i++){
-
-
         //Task Display
         let task = document.createElement('div');
         task.classList.add('taskdiv');
+        task.id = 'task' + i;
         let taskTitle = document.createElement('h4');
         taskTitle.textContent = project.tasks[i].title;
         if (project.tasks[i].priority === 'high'){
@@ -110,10 +109,42 @@ function makeForm(title, labelText, containerId) {
         let breaker = document.createElement('br')
         let label = document.createElement('label');
         label.textContent = labelText[i];
-        let input = document.createElement('input');
-        container.appendChild(label);
-        container.appendChild(input);
-        container.appendChild(breaker)
+        if (labelText[i] === 'Title: ' || labelText[i] === 'Description: '){
+            let input = document.createElement('input');
+            container.appendChild(label);
+            container.appendChild(input);
+            container.appendChild(breaker);
+        }
+        else if (labelText[i] === 'Priority: '){
+            let select = document.createElement('select');
+            select.name = 'priority';
+            for (let j = 0; j < 3; j++){
+                let option = document.createElement('option');
+                if (j === 0) {
+                    option.textContent = 'High';
+                    option.value = 'high';
+                }
+                if (j === 1) {
+                    option.textContent = 'Mid';
+                    option.value = 'mid';
+                }
+                if (j === 2) {
+                    option.textContent = 'Low';
+                    option.value = 'low';
+                }
+                select.appendChild(option);
+            }
+            container.appendChild(label);
+            container.appendChild(select);
+            container.appendChild(breaker);
+        }
+        else if (labelText[i] === 'Due Date: '){
+            let input = document.createElement('input');
+            input.type = 'date';
+            container.appendChild(label);
+            container.appendChild(input);
+            container.appendChild(breaker);
+        }
     }
     return container;
 }

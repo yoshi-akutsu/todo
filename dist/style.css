@@ -43,3 +43,12 @@ ul {
 #content {
     width: 100%;
 }
+.high {
+    background-color: #FFE7E7;
+}
+.mid {
+    background-color: #FFFFE7;
+}
+.low {
+    background-color: #F3FFE7;
+}
